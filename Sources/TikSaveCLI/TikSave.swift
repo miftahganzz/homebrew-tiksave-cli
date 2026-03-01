@@ -1,6 +1,7 @@
 import Foundation
 import ArgumentParser
 
+@main
 struct TikSave: AsyncParsableCommand {
     static let configuration = CommandConfiguration(
         commandName: "tiksave",
@@ -100,5 +101,3 @@ enum DownloadFormat: String, ExpressibleByArgument {
     case audio
     case images
 }
-
-TikSave.main()
