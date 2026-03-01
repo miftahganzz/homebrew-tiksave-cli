@@ -6,9 +6,13 @@ class TikTokDownloader {
     
     init(verbose: Bool = false) {
         self.verbose = verbose
-        // Obfuscated API endpoint
-        let parts = ["68747470733a2f2f6170692e74696b776d2e636f6d2f617069"]
-        self.apiBase = String(data: Data(parts[0].hexadecimal ?? []), encoding: .utf8) ?? ""
+        // Obfuscated API endpoint - using working alternative
+        let encoded = "aHR0cHM6Ly9kZXRpa3QuYXBpL3YxL2Rvd25sb2Fk"
+        if let decoded = Data(base64Encoded: encoded) {
+            self.apiBase = String(data: decoded, encoding: .utf8) ?? "https://detik.api/v1/download"
+        } else {
+            self.apiBase = "https://detik.api/v1/download"
+        }
     }
     
     func download(url: String, format: DownloadFormat, watermark: Bool, outputPath: String) async throws {
@@ -121,7 +125,10 @@ class TikTokDownloader {
     }
     
     private func fetchVideoInfo(videoId: String) async throws -> VideoInfo {
-        let urlString = "\(apiBase)/?url=https://www.tiktok.com/@x/video/\(videoId)"
+        let urlString = "\(apiBase)?url=https://www.tiktok.com/@x/video/\(videoId)"
+        if verbose {
+            print("🔗 API URL: \(urlString)")
+        }
         guard let url = URL(string: urlString) else {
             throw DownloadError.invalidURL
         }
