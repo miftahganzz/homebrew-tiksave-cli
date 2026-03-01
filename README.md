@@ -17,7 +17,14 @@ Download TikTok videos without watermarks from the command line.
 ### Via Homebrew (Recommended)
 
 ```bash
-brew install miftahganzz/tiksave/tiksave
+brew install miftahganzz/tiksave-cli/tiksave
+```
+
+Or tap first, then install:
+
+```bash
+brew tap miftahganzz/tiksave-cli
+brew install tiksave
 ```
 
 ### From Source
