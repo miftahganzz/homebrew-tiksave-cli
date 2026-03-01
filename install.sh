@@ -19,8 +19,8 @@ fi
 echo "📥 Installing TikSave CLI..."
 echo ""
 
-# Install via Homebrew
-brew install miftahganzz/tiksave-cli/tiksave
+# Install via Homebrew using direct formula URL
+brew install https://raw.githubusercontent.com/miftahganzz/tiksave-cli/main/Formula/tiksave.rb
 
 echo ""
 echo "✅ TikSave CLI installed successfully!"
