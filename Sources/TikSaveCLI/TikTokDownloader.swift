@@ -2,10 +2,13 @@ import Foundation
 
 class TikTokDownloader {
     private let verbose: Bool
-    private let apiBase = "https://api.tikwm.com/api"
+    private let apiBase: String
     
     init(verbose: Bool = false) {
         self.verbose = verbose
+        // Obfuscated API endpoint
+        let parts = ["68747470733a2f2f6170692e74696b776d2e636f6d2f617069"]
+        self.apiBase = String(data: Data(parts[0].hexadecimal ?? []), encoding: .utf8) ?? ""
     }
     
     func download(url: String, format: DownloadFormat, watermark: Bool, outputPath: String) async throws {
@@ -258,5 +261,31 @@ enum DownloadError: LocalizedError {
         case .downloadFailed: return "Download failed"
         case .noImages: return "This video has no images"
         }
+    }
+}
+
+extension String {
+    var hexadecimal: [UInt8]? {
+        var data = [UInt8]()
+        var hex = self
+        
+        if hex.count % 2 != 0 {
+            return nil
+        }
+        
+        while !hex.isEmpty {
+            let subIndex = hex.index(hex.startIndex, offsetBy: 2)
+            let substr = hex[..<subIndex]
+            
+            if let byte = UInt8(substr, radix: 16) {
+                data.append(byte)
+            } else {
+                return nil
+            }
+            
+            hex = String(hex[subIndex...])
+        }
+        
+        return data
     }
 }
