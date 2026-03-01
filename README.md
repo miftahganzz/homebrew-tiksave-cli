@@ -23,7 +23,14 @@ curl -fsSL https://raw.githubusercontent.com/miftahganzz/tiksave-cli/main/instal
 ### Via Homebrew
 
 ```bash
-brew install https://raw.githubusercontent.com/miftahganzz/tiksave-cli/main/Formula/tiksave.rb
+brew install miftahganzz/tiksave-cli/tiksave
+```
+
+Or tap first, then install:
+
+```bash
+brew tap miftahganzz/tiksave-cli
+brew install tiksave
 ```
 
 ### From Source
