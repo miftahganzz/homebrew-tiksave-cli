@@ -22,7 +22,7 @@ extension TikSave {
         var url: String
         
         @Option(name: .shortAndLong, help: "Output directory")
-        var output: String = "."
+        var output: String?
         
         @Option(name: .shortAndLong, help: "Format: video, audio, images")
         var format: DownloadFormat = .video
@@ -36,9 +36,15 @@ extension TikSave {
         func run() async throws {
             let downloader = 🎬🔒📱(verbose: verbose)
             
+            // Set default output directory
+            let outputPath = output ?? FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!.appendingPathComponent("TikSave").path
+            
+            // Create directory if it doesn't exist
+            try FileManager.default.createDirectory(atPath: outputPath, withIntermediateDirectories: true, attributes: nil)
+            
             print("🎬 TikSave CLI v1.0.0")
             print("📥 Downloading from: \(url)")
-            print("📁 Output: \(output)")
+            print("📁 Output: \(outputPath)")
             print("🎯 Format: \(format)")
             print("")
             
@@ -47,7 +53,7 @@ extension TikSave {
                     url: url,
                     format: format,
                     watermark: watermark,
-                    outputPath: output
+                    outputPath: outputPath
                 )
             } catch {
                 print("\n❌ Error: \(error.localizedDescription)")
@@ -65,7 +71,7 @@ extension TikSave {
         var username: String
         
         @Option(name: .shortAndLong, help: "Output directory")
-        var output: String = "."
+        var output: String?
         
         @Flag(name: .shortAndLong, help: "Download avatar")
         var avatar: Bool = false
@@ -76,6 +82,12 @@ extension TikSave {
         func run() async throws {
             let downloader = 🎬🔒📱(verbose: verbose)
             
+            // Set default output directory
+            let outputPath = output ?? FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!.appendingPathComponent("TikSave").path
+            
+            // Create directory if it doesn't exist
+            try FileManager.default.createDirectory(atPath: outputPath, withIntermediateDirectories: true, attributes: nil)
+            
             print("🎬 TikSave CLI v1.0.0")
             print("👤 Fetching profile: @\(username)")
             print("")
@@ -84,7 +96,7 @@ extension TikSave {
                 try await downloader.downloadProfile(
                     username: username,
                     downloadAvatar: avatar,
-                    outputPath: output
+                    outputPath: outputPath
                 )
             } catch {
                 print("\n❌ Error: \(error.localizedDescription)")
