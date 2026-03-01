@@ -1,8 +1,8 @@
 class Tiksave < Formula
   desc "Download TikTok videos without watermarks from the command line"
   homepage "https://github.com/miftahganzz/homebrew-tiksave-cli"
-  url "https://github.com/miftahganzz/homebrew-tiksave-cli/archive/refs/tags/v1.0.2.tar.gz"
-  sha256 "1572182a1456fb8151afca4c6285e05ea956f54b0f80f5823ab7c6a7c64f0c6f"
+  url "https://github.com/miftahganzz/homebrew-tiksave-cli/archive/refs/tags/v1.0.3.tar.gz"
+  sha256 "aea84fb2047dfbb251874719da696fa3457f5d0578ed1e9fb9a7132f7f288144"
   license "Proprietary"
 
   depends_on xcode: ["14.0", :build]
